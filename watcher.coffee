@@ -39,7 +39,6 @@ fileWatcher = (filename) ->
 
 mqtt.createClient port, host, (err, client) ->
   timeout = 5000
-  console.log err if err
   client.connect
     clientId: "watcher_#{Math.floor(Math.random * 65535)}"
     keepalive: timeout
@@ -51,13 +50,11 @@ mqtt.createClient port, host, (err, client) ->
 
   client.on 'connack', (packet) ->
     if packet.returnCode isnt 0
-      console.log 'Connect failed'
       client.disconnect()
       return
     console.log 'Client connected'
 
     fileWatcher(file).on 'data', (data) ->
-      console.log "Publishing: #{data}"
-      console.log client.publish
+      client.publish
         topic: topic
         payload: data
