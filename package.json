@@ -5,13 +5,14 @@
   "main": "index.js",
   "dependencies": {
     "mqttjs": "~0.1.7",
-    "optimist": "~0.3.5"
-  },
-  "devDependencies": {
+    "optimist": "~0.3.5",
     "coffee-script": "~1.4.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "mqtt-log-monitor":"index.js"
   },
   "repository": "",
   "author": "Adam Rudd",
