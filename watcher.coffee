@@ -2,6 +2,7 @@ mqtt = require 'mqttjs'
 fs = require 'fs'
 path = require 'path'
 optimist = require 'optimist'
+crypto = require 'crypto'
 {spawn} = require 'child_process'
 
 argv = require('optimist')
@@ -40,13 +41,17 @@ fileWatcher = (filename) ->
 mqtt.createClient port, host, (err, client) ->
   timeout = 5000
   client.connect
-    clientId: "watcher_#{Math.floor(Math.random * 65535)}"
     keepalive: timeout
 
   setTimeout =>
     client.pingreq()
   , timeout
 
+  publishLines = (data) ->
+    for line in data.split('\n') when line isnt ""
+      client.publish
+        topic: topic
+        payload: line
 
   client.on 'connack', (packet) ->
     if packet.returnCode isnt 0
@@ -55,6 +60,4 @@ mqtt.createClient port, host, (err, client) ->
     console.log 'Client connected'
 
     fileWatcher(file).on 'data', (data) ->
-      client.publish
-        topic: topic
-        payload: data
+      publishLines data
