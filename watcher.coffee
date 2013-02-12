@@ -1,4 +1,4 @@
-mqtt = require 'mqttjs'
+mqtt = require 'mqtt'
 fs = require 'fs'
 path = require 'path'
 optimist = require 'optimist'
@@ -57,7 +57,6 @@ mqtt.createClient port, host, (err, client) ->
     if packet.returnCode isnt 0
       client.disconnect()
       return
-    console.log 'Client connected'
 
     fileWatcher(file).on 'data', (data) ->
       publishLines data
