@@ -6,5 +6,5 @@ Written in coffeescript with javascript scaffolding.
 ## dependencies
 
 * [mqtt.js](http://github.com/adamvr/MQTT.js)
-* [optimist](http://github.com/substack/optimist)
+* [optimist](http://github.com/substack/node-optimist)
 * [coffee-script](http://github.com/jashkenas/coffee-script)
