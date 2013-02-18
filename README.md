@@ -2,9 +2,9 @@
 
 ## introduction
 
-A super simple tool for publishing changes in log files to mqtt.
-Equivalent to `tail -f | sed '/^\W*$/d' | mosquitto_pub -l -t <topic>`
-Written in coffeescript with javascript scaffolding.
+A super simple tool for publishing changes in log files to mqtt.  
+Equivalent to `tail -f | sed '/^\W*$/d' | mosquitto_pub -l -t <topic>`  
+Written in coffeescript with javascript scaffolding.  
 
 ## installation
 
@@ -12,7 +12,7 @@ Written in coffeescript with javascript scaffolding.
 
 ## usage
 
-    mqtt-log-monitor [-p port] [-h host] -f file -t topic
+    mqtt-log-monitor [-r] [-p port] [-h host] -f file -t topic
 
 where:
 
@@ -20,6 +20,7 @@ where:
 * -h (--host) is the hostname of the broker
 * -f (--file) is the file to monitor
 * -t (--topic) is the MQTT topic to publish changes to
+* -r (--retain) retain published messages
 
 ## caveats
 
