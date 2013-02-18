@@ -10,12 +10,6 @@ argv = require('optimist')
     mqtt-log-monitor: monitor a log file for changes
     Usage: mqtt-log-monitor -t <topic> -f <file>
     """)
-  .options "h",
-    describe: "broker host name"
-    default: "localhost"
-  .options "p",
-    describe: "broker port"
-    default: 1883
   .options "f",
     describe: "file to monitor"
     demand: true
@@ -26,6 +20,12 @@ argv = require('optimist')
     describe: "retain last message in broker"
     default: false
     boolean: true
+  .options "h",
+    describe: "broker host name"
+    default: "localhost"
+  .options "p",
+    describe: "broker port"
+    default: 1883
   .argv
 
 file = argv.f
