@@ -22,12 +22,17 @@ argv = require('optimist')
   .options "t",
     describe: "topic to publish messages on"
     demand: true
+  .options "r",
+    describe: "retain last message in broker"
+    default: false
+    boolean: true
   .argv
 
 file = argv.f
 topic = argv.t
 port = argv.p
 host = argv.h
+retain = argv.r
 
 unless fs.existsSync file
   console.error "mqtt-log-monitor: File #{file} does not exist"
@@ -52,6 +57,7 @@ mqtt.createClient port, host, (err, client) ->
       client.publish
         topic: topic
         payload: line
+        retain: retain
 
   client.on 'connack', (packet) ->
     if packet.returnCode isnt 0
