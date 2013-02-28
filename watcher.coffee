@@ -43,26 +43,9 @@ fileWatcher = (filename) ->
   stdout.setEncoding 'utf8'
   stdout
 
-mqtt.createClient port, host, (err, client) ->
-  timeout = 5000
-  client.connect
-    keepalive: timeout
 
-  setTimeout =>
-    client.pingreq()
-  , timeout
-
-  publishLines = (data) ->
-    for line in data.split('\n') when line isnt ""
-      client.publish
-        topic: topic
-        payload: line
-        retain: retain
-
-  client.on 'connack', (packet) ->
-    if packet.returnCode isnt 0
-      client.disconnect()
-      return
-
-    fileWatcher(file).on 'data', (data) ->
-      publishLines data
+c = mqtt.createClient port, host
+c.on 'connect', ->
+  fileWatcher(file).on 'data', (data) ->
+    for line in data.split('\n') when line isnt ''
+      c.publish topic, line, retain: retain
